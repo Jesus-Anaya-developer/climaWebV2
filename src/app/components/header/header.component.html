@@ -3,7 +3,8 @@
     <p>div1</p>
   </div>
   <div class="col-start-2 col-span-2 p-3 text-center">
-    <form>
+    <form [formGroup]="locationForm" (ngSubmit)="showLocation(locationForm.value)">
+
       <!-- declaracion del input que lleva la variable location -->
       <input type="text" id="location"
         class="w-1/2 p-3 m-3 rounded-full focus:outline-none focus:ring focus:ring-slate-950"
@@ -17,6 +18,11 @@
     </form>
   </div>
 </div>
+
+<!-- declaracion de la alerta en caso de error -->
+@if (alertForm == true) {
+
+}
 
 <app-espera-view></app-espera-view>
 
