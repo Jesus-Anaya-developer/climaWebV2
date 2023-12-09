@@ -1,1 +1,23 @@
-<p>header works!</p>
+<div class="grid grid-cols-4 bg-gray-950 h-20 w-full">
+  <div>
+    <p>div1</p>
+  </div>
+  <div class="col-start-2 col-span-2 p-3 text-center">
+    <form>
+      <!-- declaracion del input que lleva la variable location -->
+      <input type="text" id="location"
+        class="w-1/2 p-3 m-3 rounded-full focus:outline-none focus:ring focus:ring-slate-950"
+        placeholder="Ejemplo: Tlalnepantla, Mexico" formControlName="location" required>
+
+      <button type="submit" class="w-2/12 p-3 bg-cyan-400 mb-5 rounded-full text-black
+          font-semibold cursor-pointer
+        hover:bg-cyan-800">
+        Buscar
+      </button>
+    </form>
+  </div>
+</div>
+
+<app-espera-view></app-espera-view>
+
+<app-footer></app-footer>
