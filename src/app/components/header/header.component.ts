@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { EsperaViewComponent } from "../espera-view/espera-view.component";
 import { FooterComponent } from "../footer/footer.component";
 import { FormsModule, ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
-import { LocationService } from "../../service/location.service";
+import { SpinnerComponent } from "../spinner/spinner.component";
+import { DashboardComponent } from "../dashboard/dashboard.component";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,9 @@ import { LocationService } from "../../service/location.service";
     EsperaViewComponent,
     FooterComponent,
     FormsModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    SpinnerComponent,
+    DashboardComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -25,12 +28,19 @@ export class HeaderComponent {
   location: string = '';
   coord: any = {};
   errorData: any = {};
+  //Variable para alerta de coordenadas no encontradas
   alertCoord: boolean = false;
+
+  //Alerta de error al ingresar la direccion
   alertError: boolean = false;
 
+  //Alerta de spinner
+  showSpinner: boolean = false;
+
+  //Alerta mostrar el dashboard
+  showDashboard: boolean = false;
   //Se importa el servicio geocodingApiService en el constructor para poder usarlo
-  constructor(private geocodingApiService: LocationService) {
-  }
+
 
   //logica del formulario
   locationForm = new FormGroup({
@@ -57,22 +67,12 @@ export class HeaderComponent {
       return void 0;
     } else {
       this.alertForm = false;
-      //Se pasa la ubicación al componente hijo
-      this.location = locationForm.location;
+      this.showSpinner = true;
 
-      //Se pasa la ubicación al servicio geocodingApiService y se subscribe
-      this.geocodingApiService.getCoordinates(this.location).subscribe({
-        next: (data) => {
-          //manipulación de datos
-          this.coord = data;
-          this.alertCoord = true;
-          this.alertError = false;
-        },
-        error: (error) => {
-          this.errorData = error;
-          this.alertError = true;
-        }
-      });
+      setTimeout(() => {
+        this.showSpinner = false;
+        this.showDashboard = true;
+      }, 3000);
     }
   }
 
