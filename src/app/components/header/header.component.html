@@ -1,7 +1,4 @@
 <div class="grid grid-cols-4 bg-gray-950 h-20 w-full">
-  <div>
-    <p>div1</p>
-  </div>
   <div class="col-start-2 col-span-2 p-3 text-center">
     <form [formGroup]="locationForm" (ngSubmit)="showLocation(locationForm.value)">
 
@@ -21,7 +18,7 @@
 
 <!-- declaracion de la alerta en caso de error -->
 @if (alertForm == true) {
-
+<app-espera-view [alertForm]="alertForm"></app-espera-view>
 }
 
 <app-espera-view></app-espera-view>
