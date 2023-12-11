@@ -1,1 +1,42 @@
-<p>dash</p>
+@if (alertError == true) {
+<app-espera-view [alert]="alertError" [message]="message"></app-espera-view>
+} @else {
+<div class="flex justify-center items-center pt-6 bg-gray-950">
+  <div class="w-full flex flex-col justify-center items-center">
+    <p class="text-white mb-5">Resultados de la busqueda</p>
+    <h2 class="text-white text-3xl mb-5">{{weatherData.location?.name + ', ' + weatherData.location?.country}}</h2>
+  </div>
+</div>
+<div class="grid grid-cols-3 grid-rows-2 place-items-center gap-4 bg-gray-950">
+  <div class="w-16 h-16 bg-cyan-900 rounded-lg">
+    <p class="text-white font-semibold text-left">Hora local</p>
+    <img class="text-center" src="../../../assets/logos/reloj.png" alt="">
+    <p class="text-white text-center">{{weatherData.location?.localtime}}</p>
+  </div>
+  <div class="w-16 h-16 bg-cyan-900 rounded-lg">
+    <p class="text-white font-semibold text-left">Temperatura actual</p>
+    <img class="text-center" src="../../../assets/logos/temperatura.png" alt="">
+    <p class="text-white text-center">{{weatherData.current?.temp_c + '°C'}}</p>
+  </div>
+  <div class="w-16 h-16 bg-cyan-900 rounded-lg">
+    <p class="text-white font-semibold text-left">Clima</p>
+    <img class="text-center" src="{{weatherData.current?.condition.icon}}" alt="">
+    <p class="text-white text-center">{{weatherData.current?.condition.text}}</p>
+  </div>
+  <div class="w-16 h-16 bg-cyan-900 rounded-lg">
+    <p class="text-white font-semibold text-left">Velocidad del viento</p>
+    <img class="text-center" src="../../../assets/logos/viento.png" alt="">
+    <p class="text-white text-center">{{weatherData.current?.wind_kph + ' km/h'}}</p>
+  </div>
+  <div class="w-16 h-16 bg-cyan-900 rounded-lg">
+    <p class="text-white font-semibold text-left">Humedad</p>
+    <img class="text-center" src="../../../assets/logos/humedad.png" alt="">
+    <p class="text-white text-center">{{weatherData.current?.humidity + ' %'}}</p>
+  </div>
+  <div class="w-16 h-16 bg-cyan-900 rounded-lg">
+    <p class="text-white font-semibold text-left p-3">Precipitacion</p>
+    <img class="text-center p-2" src="../../../assets/logos/lluvia.png" alt="">
+    <p class="text-white text-center">{{weatherData.current?.precip_mm + ' mm'}}</p>
+  </div>
+</div>
+}

@@ -26,21 +26,14 @@ export class HeaderComponent {
 
   //Se declara variable de ubicación
   location: string = '';
-  coord: any = {};
-  errorData: any = {};
-  //Variable para alerta de coordenadas no encontradas
-  alertCoord: boolean = false;
-
-  //Alerta de error al ingresar la direccion
-  alertError: boolean = false;
 
   //Alerta de spinner
   showSpinner: boolean = false;
 
   //Alerta mostrar el dashboard
   showDashboard: boolean = false;
-  //Se importa el servicio geocodingApiService en el constructor para poder usarlo
 
+  message: string = '';
 
   //logica del formulario
   locationForm = new FormGroup({
@@ -58,16 +51,19 @@ export class HeaderComponent {
   /*metodo para mostrar alerta
   y pasar ubicacion a componente hijo*/
   showLocation(locationForm: any) {
+
+    this.showDashboard = false;
+
     //validacion de error en formulario
     if (!this.locationForm.valid) {
       this.alertForm = true;
-      this.alertCoord = false;
-      this.alertError = false;
+      this.message = "Error, solo se permite ingresar letras, numeros, espacios y comas.";
       //limpieza de formulario y termina ejecucion
       return void 0;
     } else {
       this.alertForm = false;
       this.showSpinner = true;
+      this.location = locationForm.location;
 
       setTimeout(() => {
         this.showSpinner = false;

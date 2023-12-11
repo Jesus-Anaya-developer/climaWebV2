@@ -18,17 +18,14 @@
 
 <!-- declaracion de la alerta en caso de error -->
 @if (alertForm == true) {
-<app-espera-view [alertForm]="alertForm"></app-espera-view>
-}
-
-@if (showSpinner) {
+<app-espera-view [message]="message" [alert]="alertForm"></app-espera-view>
+} @else if (showSpinner == true) {
 <app-spinner></app-spinner>
-} @else {
-@if (showDashboard) {
-<app-dashboard></app-dashboard>
+} @else if (showDashboard == true && showSpinner == false) {
+<app-dashboard [location]="location"></app-dashboard>
 } @else {
 <app-espera-view></app-espera-view>
 }
-}
+
 
 <app-footer></app-footer>
