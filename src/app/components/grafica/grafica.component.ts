@@ -23,13 +23,6 @@ export class GraficaComponent implements OnInit {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
 
-
-    console.log("estas en el oninit de grafica component");
-    console.log(this.forecastLabelData);
-    console.log(this.forecastDataTemp);
-
-
-
     const data = {
       labels: this.forecastLabelData,
       datasets: [{
