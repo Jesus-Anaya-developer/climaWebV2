@@ -4,13 +4,15 @@ import { HeaderComponent } from "../header/header.component";
 import { LocationService } from "../../service/location.service";
 import { WeatherService } from "../../service/weather.service";
 import { EsperaViewComponent } from "../espera-view/espera-view.component";
+import { GraficaComponent } from "../grafica/grafica.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule,
     HeaderComponent,
-    EsperaViewComponent],
+    EsperaViewComponent,
+    GraficaComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -18,6 +20,7 @@ export class DashboardComponent {
 
   //Guarda la variable de la ubicacion que escribe el usuario
   @Input() location: string = "";
+  forecastData: any = [];
 
   //alerta en caso de que la coordenada no se encuentre
   alertCoord: boolean = false;
@@ -26,9 +29,16 @@ export class DashboardComponent {
   alertError: boolean = false;
   message: string = '';
 
+  //avisa si hay data en el forecast para mostrar componente
+  showForecast: boolean = false;
+
   lat: string = '';
   lon: string = '';
   weatherData: any = {};
+
+  //Arrays que le pasaremos a la grafica con los datos
+  labelsData: any = [];
+  chartDataTemp: any = [];
 
   constructor(private locationService: LocationService,
     private weatherService: WeatherService) { }
@@ -63,8 +73,23 @@ export class DashboardComponent {
   getWeather(lat: string, lon: string) {
     this.weatherService.getWeather(this.lat, this.lon).subscribe({
       next: (data) => {
-        console.log(data);
         this.weatherData = data;
+        this.forecastData = data.forecast;
+
+        /*console.log(this.forecastData.forecastday[0].hour[0].time.split(' ')[1]);
+        for (let index = 0; index < this.forecastData.forecastday[0].hour[index].lenght; index++) {
+          this.labelsData.push(this.forecastData.forecastday[0].hour[index].time.split(' ')[1]);
+        }*/
+
+        //funciones para llenar el array solo con la temperatura y la hora
+        this.forecastData.forecastday[0].hour.map((element: any) => {
+          //llena el array de la hora
+          this.labelsData.push(element.time.split(' ')[1]);
+          //llena el array de la temperatura
+          this.chartDataTemp.push(element.temp_c);
+        })
+
+        this.showForecast = true;
       },
       error: (error) => {
         console.log(error);

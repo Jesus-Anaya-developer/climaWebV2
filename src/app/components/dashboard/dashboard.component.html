@@ -45,4 +45,7 @@
     <p class="text-white text-center">{{weatherData.current?.precip_mm + ' mm'}}</p>
   </div>
 </div>
+@if (showForecast == true) {
+<app-grafica [forecastLabelData]="labelsData" [forecastDataTemp]="chartDataTemp"></app-grafica>
+}
 }

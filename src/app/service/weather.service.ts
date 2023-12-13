@@ -21,4 +21,5 @@ export class WeatherService {
 
     return this.http.get<any>(url);
   }
+
 }
